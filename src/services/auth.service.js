@@ -11,7 +11,7 @@ const login = async (data) => {
 
     localStorage.setItem(
       "user",
-      JSON.stringify(response.data)
+      JSON.stringify(response.data.user || response.data)
     );
   }
 
@@ -24,11 +24,25 @@ const logout = () => {
 };
 
 const getCurrentUser = () => {
-  return JSON.parse(localStorage.getItem("user"));
+  try {
+    return JSON.parse(localStorage.getItem("user"));
+  } catch {
+    return null;
+  }
+};
+
+const getToken = () => {
+  return localStorage.getItem("token");
+};
+
+const isAuthenticated = () => {
+  return Boolean(getToken());
 };
 
 export default {
   login,
   logout,
   getCurrentUser,
+  getToken,
+  isAuthenticated,
 };

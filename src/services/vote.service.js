@@ -11,7 +11,7 @@ const createVote = async (data) => {
 
 const getVoteStats = async (consultationId) => {
   const response = await API.get(
-    `/votes/stats/${consultationId}`
+    `/votes/results/${consultationId}`
   );
 
   return response.data;

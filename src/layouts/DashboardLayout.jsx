@@ -1,13 +1,15 @@
+import { Outlet } from "react-router-dom"
 import { Sidebar } from "../components/Sidebar"
-import { Engagements } from "../pages/engagements/Engagement"
 
-
-
-export const DashboardLayout = ()=>{
+const DashboardLayout = ()=>{
     return(
         <div className="DashboardLayout h-screen flex">
             <Sidebar/>
-            <Engagements/>
+            <div className="flex-1 overflow-hidden">
+              <Outlet />
+            </div>
         </div>
     )
 }
+
+export default DashboardLayout;

@@ -16,6 +16,8 @@ import ConsultationStats from "../pages/consultations/ConsultationStats";
 
 import Engagement from "../pages/engagements/Engagement";
 
+import VotePage from "../pages/votes/vote";
+
 function AppRoutes() {
   return (
     <BrowserRouter>
@@ -45,6 +47,11 @@ function AppRoutes() {
           <Route
             path="consultations/stats"
             element={<ConsultationStats />}
+          />
+
+          <Route
+            path="votes"
+            element={<VotePage />}
           />
 
           <Route

@@ -9,10 +9,11 @@ const StatCard = ({ title, value, label, icon: Icon }) => {
           <p className="text-[#002b5b] font-bold text-3xl mb-1">{value}</p>
           <p className="text-gray-400 text-xs font-light">{label}</p>
         </div>
-        {/* Conteneur d'icône avec le style bleu spécifique */}
-        <div className="p-2 bg-[#4a7ba3] rounded-lg">
-          <Icon className="text-white text-xl" />
-        </div>
+        {Icon ? (
+          <div className="p-2 bg-[#4a7ba3] rounded-lg">
+            <Icon className="text-white text-xl" />
+          </div>
+        ) : null}
       </div>
     </div>
   );
