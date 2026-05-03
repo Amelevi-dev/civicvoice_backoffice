@@ -8,6 +8,7 @@ import DashboardLayout from "../layouts/DashboardLayout";
 import ProtectedRoute from "./ProtectedRoute";
 
 import Login from "../pages/auth/Login";
+import Register from "../pages/auth/Register";
 import Dashboard from "../pages/dashboard/dashboard";
 import CreateConsultation from "../pages/consultations/CreateConsultation";
 import ConsultationStats from "../pages/consultations/ConsultationStats";
@@ -15,6 +16,7 @@ import Engagement from "../pages/engagements/Engagement";
 import VotePage from "../pages/votes/vote";
 import Ledger from "../pages/ledger/Ledger";
 import AuditReports from "../pages/audit/AuditReports";
+import AccessManagement from "../pages/admin/AccessManagement";
 
 function AppRoutes() {
   return (
@@ -23,6 +25,11 @@ function AppRoutes() {
         <Route
           path="/login"
           element={<Login />}
+        />
+
+        <Route
+          path="/register"
+          element={<Register />}
         />
 
         <Route
@@ -64,6 +71,13 @@ function AppRoutes() {
               path="audit"
               element={<AuditReports />}
             />
+
+            <Route element={<ProtectedRoute allowedRoles={['admin']} />}>
+              <Route
+                path="admin/access"
+                element={<AccessManagement />}
+              />
+            </Route>
           </Route>
         </Route>
       </Routes>

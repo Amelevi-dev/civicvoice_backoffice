@@ -40,6 +40,10 @@ export const Sidebar = () => {
             <div className="menu px-3.5 py-4 w-full flex flex-col justify-start items-start gap-3 flex-1 overflow-y-auto">
                 <SidebarLink to="/" icon={FaThLarge} title="Observatoire" />
                 
+                {user?.role === 'admin' && (
+                    <SidebarLink to="/admin/access" icon={FaShield} title="Gestion des Accès" />
+                )}
+
                 {user?.role === 'authority' && (
                     <>
                         <SidebarLink to="/consultations/create" icon={FaPlusCircle} title="Lancer une Consultation" />

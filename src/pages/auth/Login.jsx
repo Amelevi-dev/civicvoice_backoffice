@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import toast from "react-hot-toast";
 
@@ -34,9 +34,9 @@ function Login() {
         isMobile: false,
       });
 
-      if (response.user.role !== 'authority') {
+      if (response.user.role !== 'authority' && response.user.role !== 'admin') {
         authService.logout();
-        toast.error("Accès réservé aux autorités", { id: loadingToast });
+        toast.error("Accès réservé aux autorités et administrateurs", { id: loadingToast });
         return;
       }
 
@@ -45,7 +45,7 @@ function Login() {
 
     } catch (error) {
       console.log(error);
-      toast.error("Identifiants incorrects", { id: loadingToast });
+      toast.error(error.response?.data?.message || "Identifiants incorrects", { id: loadingToast });
     }
   };
 
@@ -88,6 +88,12 @@ function Login() {
         >
           Se connecter
         </button>
+
+        <div className="mt-8 text-center">
+            <Link to="/register" className="text-bleuFonce font-semibold hover:text-orangeClair transition-colors">
+                Demander un accès autorité / observateur
+            </Link>
+        </div>
 
       </motion.form>
 

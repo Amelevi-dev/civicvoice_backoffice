@@ -6,6 +6,12 @@ const getUsers = async () => {
   return response.data;
 };
 
+const approveUser = async (userId) => {
+  const response = await API.put(`/users/${userId}/approve`);
+  return response.data;
+};
+
 export default {
   getUsers,
+  approveUser
 };
