@@ -1,13 +1,18 @@
 import { useState } from "react";
 import { Navbar } from "../../components/Navbar";
 import { HiOutlineCalendar } from 'react-icons/hi';
+import toast from "react-hot-toast";
+import PageTransition from "../../components/PageTransition";
 import consultationService from "../../services/consultation.service";
 
+import authService from "../../services/auth.service";
+
 const CreateConsultation = () => {
+  const user = authService.getCurrentUser();
   const [formData, setFormData] = useState({
     title: "",
     description: "",
-    arrondissement: "Premier Arrondissement",
+    arrondissement: user?.arrondissement || "Premier Arrondissement",
     startDate: "",
     endDate: ""
   });
@@ -21,21 +26,16 @@ const CreateConsultation = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const token = localStorage.getItem("token");
-
-    if (!token) {
-      return alert("Vous devez être connecté pour créer une consultation.");
-    }
-
     if (!formData.title || !formData.description || !formData.startDate || !formData.endDate) {
-      return alert("Veuillez compléter tous les champs.");
+      return toast.error("Veuillez compléter tous les champs.");
     }
 
     setIsSubmitting(true);
+    const t = toast.loading("Publication de la consultation...");
 
     try {
       await consultationService.createConsultation(formData);
-      alert("Consultation créée avec succès.");
+      toast.success("Consultation publiée et scellée sur la blockchain !", { id: t });
       setFormData({
         title: "",
         description: "",
@@ -45,129 +45,114 @@ const CreateConsultation = () => {
       });
     } catch (error) {
       console.error(error);
-      if (error?.response?.status === 401) {
-        alert("Connexion invalide. Veuillez vous reconnecter.");
-      } else if (error?.response?.status === 403) {
-        alert("Accès refusé. Vous n'avez pas les droits pour créer une consultation.");
-      } else {
-        alert("Impossible de créer la consultation.");
-      }
+      toast.error("Échec de la publication", { id: t });
     } finally {
       setIsSubmitting(false);
     }
   };
 
   return (
-    <div className="content w-[75%] h-screen flex flex-col justify-start items-start gap-4 overflow-hidden">
-      <Navbar title="Nouvelle Consultation" description="Créer une consultation pour recueillir l'avis des citoyens de votre arrondissement" />
-      <div className="card flex justify-center items-center flex-1 w-full h-[85%] bg-gray-100 p-4 overflow-auto">
-        <div className="bg-white rounded-2xl shadow-sm p-8 w-full h-full max-h-full border border-gray-100 font-sans">
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="mb-3">
-              <label className="block text-[#333] font-bold mb-2 text-lg">
-                Titre de la consultation
-              </label>
-              <input
-                type="text"
-                name="title"
-                value={formData.title}
-                onChange={handleChange}
-                placeholder="Ex: Réaménagement du marché central"
-                className="w-full p-3 rounded-lg border border-gray-200 bg-gray-50/50 text-gray-600 focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent placeholder-gray-400"
-              />
-            </div>
-
-            <div className="mb-3">
-              <label className="block text-[#333] font-bold mb-2 text-lg">
-                Question de la consultation
-              </label>
-              <textarea
-                name="description"
-                rows="4"
-                value={formData.description}
-                onChange={handleChange}
-                placeholder="Rédiger une question claire et concise à laquelle les citoyens pourront répondre par Oui, Non ou Abstention..."
-                className="w-full p-3 rounded-lg border border-gray-200 bg-gray-50/50 text-gray-600 focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent placeholder-gray-400 resize-none"
-              />
-            </div>
-
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-2 mb-4">
-              <div>
-                <label className="block text-[#333] font-bold mb-1 text-lg">
-                  Arrondissement
+    <PageTransition>
+      <div className="content w-full h-screen flex flex-col justify-start items-start gap-4 overflow-hidden bg-gray-100">
+        <div className="px-8 pt-8 w-full">
+          <Navbar title="Nouvelle Consultation" description="Créer une consultation pour recueillir l'avis des citoyens de votre arrondissement" />
+        </div>
+        <div className="card flex justify-center items-center flex-1 w-full p-8 overflow-auto">
+          <div className="bg-white rounded-3xl shadow-sm p-10 w-full max-w-4xl border border-gray-100 font-sans">
+            <form onSubmit={handleSubmit} className="space-y-8">
+              <div className="space-y-2">
+                <label className="block text-bleuFonce font-bold text-lg">
+                  Objet de la consultation publique
                 </label>
-                <select
-                  name="arrondissement"
-                  value={formData.arrondissement}
+                <input
+                  type="text"
+                  name="title"
+                  value={formData.title}
                   onChange={handleChange}
-                  className="w-full p-3 rounded-lg border border-gray-200 bg-gray-50 text-gray-600 focus:outline-none focus:ring-2 focus:ring-orange-400"
+                  placeholder="Ex: Construction d'un nouveau forage à Kati"
+                  className="w-full p-4 rounded-xl border border-gray-200 bg-gray-50/50 text-gray-600 focus:outline-none focus:ring-2 focus:ring-orangeClair transition-all placeholder-gray-400"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <label className="block text-bleuFonce font-bold text-lg">
+                  Question posée à la population
+                </label>
+                <textarea
+                  name="description"
+                  rows="4"
+                  value={formData.description}
+                  onChange={handleChange}
+                  placeholder="Décrivez le projet de façon claire. Le citoyen malien doit pouvoir juger de l'impact direct sur son quotidien (santé, éducation, sécurité)..."
+                  className="w-full p-4 rounded-xl border border-gray-200 bg-gray-50/50 text-gray-600 focus:outline-none focus:ring-2 focus:ring-orangeClair transition-all placeholder-gray-400 resize-none"
+                />
+              </div>
+
+              <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
+                <div className="space-y-2">
+                  <label className="block text-bleuFonce font-bold text-lg">
+                    Commune / Collectivité
+                  </label>
+                  <select
+                    name="arrondissement"
+                    value={formData.arrondissement}
+                    onChange={handleChange}
+                    disabled={user?.role === 'authority'}
+                    className="w-full p-4 rounded-xl border border-gray-200 bg-gray-50 text-gray-600 focus:outline-none focus:ring-2 focus:ring-orangeClair transition-all cursor-pointer disabled:cursor-not-allowed"
+                  >
+                    <option>Commune I (Bamako)</option>
+                    <option>Commune II (Bamako)</option>
+                    <option>Commune III (Bamako)</option>
+                    <option>Commune IV (Bamako)</option>
+                    <option>Commune V (Bamako)</option>
+                    <option>Commune VI (Bamako)</option>
+                    <option>Cercle de Kati</option>
+                  </select>
+                </div>
+
+                <div className="grid grid-cols-1 gap-4">
+                  <div className="space-y-2">
+                    <label className="block text-bleuFonce font-bold text-lg">
+                      Période de vote
+                    </label>
+                    <div className="flex gap-4">
+                      <div className="relative flex-1">
+                        <input
+                          type="date"
+                          name="startDate"
+                          value={formData.startDate}
+                          onChange={handleChange}
+                          className="w-full p-4 rounded-xl border border-gray-200 bg-gray-50/50 text-gray-500 focus:outline-none focus:ring-2 focus:ring-orangeClair transition-all"
+                        />
+                      </div>
+                      <div className="relative flex-1">
+                        <input
+                          type="date"
+                          name="endDate"
+                          value={formData.endDate}
+                          onChange={handleChange}
+                          className="w-full p-4 rounded-xl border border-gray-200 bg-gray-50/50 text-gray-500 focus:outline-none focus:ring-2 focus:ring-orangeClair transition-all"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex justify-end pt-4">
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="bg-orangeClair hover:bg-[#ff6a33] text-white font-bold py-4 px-12 rounded-2xl transition-all duration-200 text-lg shadow-lg hover:shadow-orange-200 active:scale-95 disabled:opacity-60"
                 >
-                  <option>Premier Arrondissement</option>
-                  <option>Deuxième Arrondissement</option>
-                  <option>Troisième Arrondissement</option>
-                  <option>Quatrième Arrondissement</option>
-                  <option>Cinquième Arrondissement</option>
-                  <option>Sixième Arrondissement</option>
-                  <option>Septième Arrondissement</option>
-                </select>
+                  {isSubmitting ? "Publication..." : "Publier et Sceller"}
+                </button>
               </div>
-
-              <div className="flex flex-col gap-4">
-                <div>
-                  <label className="block text-[#333] font-bold mb-1 text-lg">
-                    Date de début
-                  </label>
-                  <div className="relative group">
-                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                      <div className="bg-cyan-500/10 p-1.5 rounded-md">
-                        <HiOutlineCalendar className="text-cyan-600 text-xl" />
-                      </div>
-                    </div>
-                    <input
-                      type="date"
-                      name="startDate"
-                      value={formData.startDate}
-                      onChange={handleChange}
-                      className="w-full pl-14 p-3 rounded-lg border border-gray-200 bg-gray-50/50 text-gray-500 focus:outline-none focus:ring-2 focus:ring-orange-400"
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-[#333] font-bold mb-1 text-lg">
-                    Date de fin
-                  </label>
-                  <div className="relative group">
-                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                      <div className="bg-cyan-500/10 p-1.5 rounded-md">
-                        <HiOutlineCalendar className="text-cyan-600 text-xl" />
-                      </div>
-                    </div>
-                    <input
-                      type="date"
-                      name="endDate"
-                      value={formData.endDate}
-                      onChange={handleChange}
-                      className="w-full pl-14 p-3 rounded-lg border border-gray-200 bg-gray-50/50 text-gray-500 focus:outline-none focus:ring-2 focus:ring-orange-400"
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="flex justify-end">
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                className="bg-orangeClair hover:bg-[#ff6a33] text-white font-bold py-3 px-8 rounded-xl transition-all duration-200 text-lg shadow-md hover:shadow-lg active:scale-95 disabled:opacity-60"
-              >
-                {isSubmitting ? "Publication..." : "Poster"}
-              </button>
-            </div>
-          </form>
+            </form>
+          </div>
         </div>
       </div>
-    </div>
+    </PageTransition>
   );
 };
 

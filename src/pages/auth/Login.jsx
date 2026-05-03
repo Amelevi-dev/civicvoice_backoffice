@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
+import toast from "react-hot-toast";
 
 import authService from "../../services/auth.service";
 
@@ -23,20 +25,27 @@ function Login() {
 
     e.preventDefault();
 
+    const loadingToast = toast.loading("Connexion en cours...");
+
     try {
 
-      await authService.login({
+      const response = await authService.login({
         ...formData,
         isMobile: false,
       });
 
+      if (response.user.role !== 'authority') {
+        authService.logout();
+        toast.error("Accès réservé aux autorités", { id: loadingToast });
+        return;
+      }
+
+      toast.success(`Bienvenue, ${response.user.name} !`, { id: loadingToast });
       navigate("/");
 
     } catch (error) {
-
       console.log(error);
-
-      alert("Connexion échouée");
+      toast.error("Identifiants incorrects", { id: loadingToast });
     }
   };
 
@@ -44,39 +53,43 @@ function Login() {
 
     <div className="min-h-screen flex items-center justify-center bg-[#E3EDF2]">
 
-      <form
+      <motion.form
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={{ opacity: 1, scale: 1 }}
         onSubmit={handleSubmit}
-        className="bg-white p-10 rounded-2xl w-100 shadow-lg"
+        className="bg-white p-10 rounded-2xl w-100 shadow-xl"
       >
 
         <h1 className="text-3xl font-bold mb-8 text-bleuFonce">
           Connexion
         </h1>
 
-        <input
-          type="text"
-          name="username"
-          placeholder="Nom utilisateur"
-          onChange={handleChange}
-          className="w-full mb-4 p-4 rounded-lg border"
-        />
+        <div className="space-y-4">
+          <input
+            type="text"
+            name="username"
+            placeholder="Nom utilisateur"
+            onChange={handleChange}
+            className="w-full p-4 rounded-lg border border-gray-200 focus:ring-2 focus:ring-orangeClair outline-none transition-all"
+          />
 
-        <input
-          type="password"
-          name="password"
-          placeholder="Mot de passe"
-          onChange={handleChange}
-          className="w-full mb-6 p-4 rounded-lg border"
-        />
+          <input
+            type="password"
+            name="password"
+            placeholder="Mot de passe"
+            onChange={handleChange}
+            className="w-full p-4 rounded-lg border border-gray-200 focus:ring-2 focus:ring-orangeClair outline-none transition-all"
+          />
+        </div>
 
         <button
           type="submit"
-          className="w-full bg-orangeClair text-white py-4 rounded-xl"
+          className="w-full bg-orangeClair text-white py-4 rounded-xl mt-8 font-bold hover:shadow-lg active:scale-95 transition-all"
         >
           Se connecter
         </button>
 
-      </form>
+      </motion.form>
 
     </div>
   );

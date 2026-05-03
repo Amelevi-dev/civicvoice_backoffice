@@ -25,10 +25,20 @@ const logout = () => {
 
 const getCurrentUser = () => {
   try {
-    return JSON.parse(localStorage.getItem("user"));
+    const user = localStorage.getItem("user");
+    return user ? JSON.parse(user) : null;
   } catch {
     return null;
   }
+};
+
+const getUserRole = () => {
+  const user = getCurrentUser();
+  return user ? user.role : null;
+};
+
+const isAdmin = () => {
+  return getUserRole() === 'authority';
 };
 
 const getToken = () => {
@@ -43,6 +53,8 @@ export default {
   login,
   logout,
   getCurrentUser,
+  getUserRole,
+  isAdmin,
   getToken,
   isAuthenticated,
 };
