@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PageTransition from '../../components/PageTransition';
 import { Navbar } from '../../components/Navbar';
 import blockchainService from '../../services/blockchain.service';
-import { FaFilePdf, FaCheckShield, FaHistory } from 'react-icons/fa';
+import { FaFilePdf, FaShieldAlt, FaHistory } from 'react-icons/fa';
 import toast from 'react-hot-toast';
 
 const AuditReports = () => {
@@ -39,7 +39,7 @@ const AuditReports = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="bg-white p-8 rounded-3xl shadow-sm border border-gray-100">
               <h3 className="text-xl font-bold text-bleuFonce mb-6 flex items-center gap-2">
-                <FaCheckShield className="text-emerald-500" />
+                <FaShieldAlt className="text-emerald-500" />
                 Certification de l'Intégrité
               </h3>
               <div className="space-y-4">
