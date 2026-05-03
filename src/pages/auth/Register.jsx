@@ -133,19 +133,34 @@ function Register() {
           </div>
 
           <div className="space-y-1">
-            <label className="text-xs font-bold text-gray-400 uppercase ml-1">Arrondissement / Commune</label>
+            <label className="text-xs font-bold text-gray-400 uppercase ml-1">Commune / Région</label>
             <select
                 name="arrondissement"
                 onChange={handleChange}
                 className="w-full p-4 rounded-lg border border-gray-200 focus:ring-2 focus:ring-orangeClair outline-none transition-all bg-white"
             >
-                <option>Premier Arrondissement</option>
-                <option>Deuxième Arrondissement</option>
-                <option>Troisième Arrondissement</option>
-                <option>Quatrième Arrondissement</option>
-                <option>Cinquième Arrondissement</option>
-                <option>Sixième Arrondissement</option>
-                <option>Septième Arrondissement</option>
+                <optgroup label="Bamako">
+                    <option>Commune I</option>
+                    <option>Commune II</option>
+                    <option>Commune III</option>
+                    <option>Commune IV</option>
+                    <option>Commune V</option>
+                    <option>Commune VI</option>
+                </optgroup>
+                <optgroup label="Régions / Cercles">
+                    <option>Kayes</option>
+                    <option>Koulikoro</option>
+                    <option>Sikasso</option>
+                    <option>Ségou</option>
+                    <option>Mopti</option>
+                    <option>Tombouctou</option>
+                    <option>Gao</option>
+                    <option>Kidal</option>
+                    <option>Taoudénit</option>
+                    <option>Ménaka</option>
+                    <option>Dioïla</option>
+                    <option>Kati</option>
+                </optgroup>
             </select>
           </div>
         </div>
