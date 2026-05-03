@@ -15,7 +15,7 @@ function Register() {
     role: "authority",
     sexe: "n/A",
     age: "",
-    arrondissement: "Premier Arrondissement"
+    arrondissement: "Commune I"
   });
 
   const handleChange = (e) => {

@@ -12,7 +12,7 @@ const CreateConsultation = () => {
   const [formData, setFormData] = useState({
     title: "",
     description: "",
-    arrondissement: user?.arrondissement || "Premier Arrondissement",
+    arrondissement: user?.arrondissement || "Commune I (Bamako)",
     startDate: "",
     endDate: ""
   });
@@ -39,7 +39,7 @@ const CreateConsultation = () => {
       setFormData({
         title: "",
         description: "",
-        arrondissement: "Premier Arrondissement",
+        arrondissement: "Commune I (Bamako)",
         startDate: "",
         endDate: ""
       });
