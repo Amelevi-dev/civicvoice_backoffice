@@ -13,7 +13,7 @@ import MaliMap from "../../components/MaliMap";
 import toast from "react-hot-toast";
 
 const REGION_GROUPS = {
-  Bamako: ["Commune I", "Commune II", "Commune III", "Commune IV", "Commune V", "Commune VI", "Commune I (Bamako)", "Commune II (Bamako)", "Commune III (Bamako)", "Commune IV (Bamako)", "Commune V (Bamako)", "Commune VI (Bamako)"],
+  Bamako: ["Arrondissement I", "Arrondissement II", "Arrondissement III", "Arrondissement IV", "Arrondissement V", "Arrondissement VI", "Arrondissement VII"],
   Kayes: ["Kayes"],
   Koulikoro: ["Koulikoro", "Kati", "Dioïla"],
   Sikasso: ["Sikasso"],
@@ -180,7 +180,7 @@ function Dashboard() {
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 mt-8">
-            <ChartContainer title={`Dynamisme par Commune${selectedRegion ? ` - ${selectedRegion.name}` : ''}`}>
+            <ChartContainer title={`Dynamisme par Arrondissement${selectedRegion ? ` - ${selectedRegion.name}` : ''}`}>
               <CustomBarChart data={barData} />
             </ChartContainer>
 

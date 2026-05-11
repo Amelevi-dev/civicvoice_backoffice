@@ -63,7 +63,7 @@ const AccessManagement = () => {
                     <tr>
                       <th className="px-6 py-4 text-xs font-bold text-gray-400 uppercase">Utilisateur</th>
                       <th className="px-6 py-4 text-xs font-bold text-gray-400 uppercase">Rôle</th>
-                      <th className="px-6 py-4 text-xs font-bold text-gray-400 uppercase">Commune</th>
+                      <th className="px-6 py-4 text-xs font-bold text-gray-400 uppercase">Arrondissement</th>
                       <th className="px-6 py-4 text-xs font-bold text-gray-400 uppercase">Action</th>
                     </tr>
                   </thead>
@@ -115,7 +115,7 @@ const AccessManagement = () => {
                     <tr>
                       <th className="px-6 py-4 text-xs font-bold text-gray-400 uppercase">Utilisateur</th>
                       <th className="px-6 py-4 text-xs font-bold text-gray-400 uppercase">Rôle</th>
-                      <th className="px-6 py-4 text-xs font-bold text-gray-400 uppercase">Commune</th>
+                      <th className="px-6 py-4 text-xs font-bold text-gray-400 uppercase">Arrondissement</th>
                       <th className="px-6 py-4 text-xs font-bold text-gray-400 uppercase">Statut</th>
                     </tr>
                   </thead>

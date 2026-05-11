@@ -15,7 +15,7 @@ function Register() {
     role: "authority",
     sexe: "n/A",
     age: "",
-    arrondissement: "Commune I"
+    arrondissement: "Arrondissement I"
   });
 
   const handleChange = (e) => {
@@ -133,19 +133,20 @@ function Register() {
           </div>
 
           <div className="space-y-1">
-            <label className="text-xs font-bold text-gray-400 uppercase ml-1">Commune / Région</label>
+            <label className="text-xs font-bold text-gray-400 uppercase ml-1">Arrondissement / Région</label>
             <select
                 name="arrondissement"
                 onChange={handleChange}
                 className="w-full p-4 rounded-lg border border-gray-200 focus:ring-2 focus:ring-orangeClair outline-none transition-all bg-white"
             >
                 <optgroup label="Bamako">
-                    <option>Commune I</option>
-                    <option>Commune II</option>
-                    <option>Commune III</option>
-                    <option>Commune IV</option>
-                    <option>Commune V</option>
-                    <option>Commune VI</option>
+                    <option>Arrondissement I</option>
+                    <option>Arrondissement II</option>
+                    <option>Arrondissement III</option>
+                    <option>Arrondissement IV</option>
+                    <option>Arrondissement V</option>
+                    <option>Arrondissement VI</option>
+                    <option>Arrondissement VII</option>
                 </optgroup>
                 <optgroup label="Régions / Cercles">
                     <option>Kayes</option>

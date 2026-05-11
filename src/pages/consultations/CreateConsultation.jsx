@@ -12,7 +12,7 @@ const CreateConsultation = () => {
   const [formData, setFormData] = useState({
     title: "",
     description: "",
-    arrondissement: user?.arrondissement || "Commune I (Bamako)",
+    arrondissement: user?.arrondissement || "Arrondissement I",
     startDate: "",
     endDate: ""
   });
@@ -39,7 +39,7 @@ const CreateConsultation = () => {
       setFormData({
         title: "",
         description: "",
-        arrondissement: "Commune I (Bamako)",
+        arrondissement: "Arrondissement I",
         startDate: "",
         endDate: ""
       });
@@ -91,7 +91,7 @@ const CreateConsultation = () => {
               <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
                 <div className="space-y-2">
                   <label className="block text-bleuFonce font-bold text-lg">
-                    Commune / Collectivité
+                    Arrondissement
                   </label>
                   <select
                     name="arrondissement"
@@ -100,12 +100,13 @@ const CreateConsultation = () => {
                     disabled={user?.role === 'authority'}
                     className="w-full p-4 rounded-xl border border-gray-200 bg-gray-50 text-gray-600 focus:outline-none focus:ring-2 focus:ring-orangeClair transition-all cursor-pointer disabled:cursor-not-allowed"
                   >
-                    <option>Commune I (Bamako)</option>
-                    <option>Commune II (Bamako)</option>
-                    <option>Commune III (Bamako)</option>
-                    <option>Commune IV (Bamako)</option>
-                    <option>Commune V (Bamako)</option>
-                    <option>Commune VI (Bamako)</option>
+                    <option>Arrondissement I</option>
+                    <option>Arrondissement II</option>
+                    <option>Arrondissement III</option>
+                    <option>Arrondissement IV</option>
+                    <option>Arrondissement V</option>
+                    <option>Arrondissement VI</option>
+                    <option>Arrondissement VII</option>
                     <option>Cercle de Kati</option>
                   </select>
                 </div>
