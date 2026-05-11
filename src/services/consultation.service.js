@@ -25,8 +25,20 @@ const getConsultationById = async (id) => {
   return response.data;
 };
 
+const closeConsultation = async (id) => {
+  const response = await API.patch(`/consultations/${id}/close`);
+  return response.data;
+};
+
+const archiveConsultation = async (id) => {
+  const response = await API.patch(`/consultations/${id}/archive`);
+  return response.data;
+};
+
 export default {
   createConsultation,
   getConsultations,
   getConsultationById,
+  closeConsultation,
+  archiveConsultation,
 };

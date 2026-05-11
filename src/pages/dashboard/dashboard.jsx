@@ -60,14 +60,14 @@ function Dashboard() {
 
   if (isLoading) {
     return (
-      <div className="h-screen flex items-center justify-center text-xl font-semibold">
+      <div className="h-full flex items-center justify-center text-xl font-semibold">
         Chargement du tableau de bord...
       </div>
     );
   }
 
   return (
-    <div className="flex-1 overflow-auto bg-gray-100">
+    <div className="flex-1 h-full overflow-auto bg-gray-100">
       <div className="p-8">
         <Navbar title="Tableau de bord" description="Vue d'ensemble des consultations, des engagements et des résultats de vote" />
         <div className="grid grid-cols-1 xl:grid-cols-3 gap-6 mt-8">

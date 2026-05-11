@@ -87,20 +87,20 @@ const VotePage = () => {
 
   if (isLoading) {
     return (
-      <div className="h-screen flex items-center justify-center text-xl font-semibold">
+      <div className="h-full flex items-center justify-center text-xl font-semibold">
         Chargement des données...
       </div>
     );
   }
 
   return (
-    <div className="flex flex-col min-h-screen bg-gray-100">
+    <div className="flex flex-col min-h-0 h-full bg-gray-100">
       <Navbar
         title="Vote citoyen"
         description="Suivi des résultats et statistiques"
       />
 
-      <div className="flex-1 p-8">
+      <div className="flex-1 p-8 overflow-auto">
         <div className="max-w-7xl mx-auto space-y-8">
           <div className="bg-white p-6 rounded-3xl shadow-sm border border-gray-100">
             <label className="block text-lg font-semibold mb-4">Sélectionner une consultation</label>

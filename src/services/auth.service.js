@@ -18,6 +18,11 @@ const login = async (data) => {
   return response.data;
 };
 
+const signup = async (data) => {
+  const response = await API.post("/auth/signup", data);
+  return response.data;
+};
+
 const logout = () => {
   localStorage.removeItem("token");
   localStorage.removeItem("user");
@@ -41,6 +46,7 @@ const isAuthenticated = () => {
 
 export default {
   login,
+  signup,
   logout,
   getCurrentUser,
   getToken,

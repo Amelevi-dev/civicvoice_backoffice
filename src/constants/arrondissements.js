@@ -1,0 +1,1 @@
+export const ARRONDISSEMENTS = ['1er Arrondissement','2e Arrondissement','3e Arrondissement','4e Arrondissement','5e Arrondissement','6e Arrondissement','7e Arrondissement']

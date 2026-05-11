@@ -7,7 +7,6 @@ const CreateConsultation = () => {
   const [formData, setFormData] = useState({
     title: "",
     description: "",
-    arrondissement: "Premier Arrondissement",
     startDate: "",
     endDate: ""
   });
@@ -36,13 +35,7 @@ const CreateConsultation = () => {
     try {
       await consultationService.createConsultation(formData);
       alert("Consultation créée avec succès.");
-      setFormData({
-        title: "",
-        description: "",
-        arrondissement: "Premier Arrondissement",
-        startDate: "",
-        endDate: ""
-      });
+      setFormData({ title: "", description: "", startDate: "", endDate: "" });
     } catch (error) {
       console.error(error);
       if (error?.response?.status === 401) {
@@ -58,11 +51,12 @@ const CreateConsultation = () => {
   };
 
   return (
-    <div className="content w-[75%] h-screen flex flex-col justify-start items-start gap-4 overflow-hidden">
+    
+    <div className="content w-full h-full flex flex-col justify-start items-start gap-4 overflow-hidden">
       <Navbar title="Nouvelle Consultation" description="Créer une consultation pour recueillir l'avis des citoyens de votre arrondissement" />
-      <div className="card flex justify-center items-center flex-1 w-full h-[85%] bg-gray-100 p-4 overflow-auto">
-        <div className="bg-white rounded-2xl shadow-sm p-8 w-full h-full max-h-full border border-gray-100 font-sans">
-          <form onSubmit={handleSubmit} className="space-y-6">
+      <div className="card flex-1 bg-gray-100 p-4 overflow-auto">
+        <div className="bg-white rounded-2xl shadow-sm p-8 h-full max-h-full border border-gray-100 font-sans flex flex-col">
+          <form onSubmit={handleSubmit} className="space-y-6 p-4 flex flex-col overflow-auto">
             <div className="mb-3">
               <label className="block text-[#333] font-bold mb-2 text-lg">
                 Titre de la consultation
@@ -91,28 +85,8 @@ const CreateConsultation = () => {
               />
             </div>
 
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-2 mb-4">
-              <div>
-                <label className="block text-[#333] font-bold mb-1 text-lg">
-                  Arrondissement
-                </label>
-                <select
-                  name="arrondissement"
-                  value={formData.arrondissement}
-                  onChange={handleChange}
-                  className="w-full p-3 rounded-lg border border-gray-200 bg-gray-50 text-gray-600 focus:outline-none focus:ring-2 focus:ring-orange-400"
-                >
-                  <option>Premier Arrondissement</option>
-                  <option>Deuxième Arrondissement</option>
-                  <option>Troisième Arrondissement</option>
-                  <option>Quatrième Arrondissement</option>
-                  <option>Cinquième Arrondissement</option>
-                  <option>Sixième Arrondissement</option>
-                  <option>Septième Arrondissement</option>
-                </select>
-              </div>
-
-              <div className="flex flex-col gap-4">
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-3 mb-4">
+              <div className="flex gap-4">
                 <div>
                   <label className="block text-[#333] font-bold mb-1 text-lg">
                     Date de début
@@ -152,10 +126,7 @@ const CreateConsultation = () => {
                     />
                   </div>
                 </div>
-              </div>
-            </div>
-
-            <div className="flex justify-end">
+                <div className="flex justify-end mt-auto">
               <button
                 type="submit"
                 disabled={isSubmitting}
@@ -163,6 +134,8 @@ const CreateConsultation = () => {
               >
                 {isSubmitting ? "Publication..." : "Poster"}
               </button>
+            </div>
+              </div>
             </div>
           </form>
         </div>

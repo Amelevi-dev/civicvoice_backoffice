@@ -8,15 +8,23 @@ import DashboardLayout from "../layouts/DashboardLayout";
 
 import Login from "../pages/auth/Login";
 
+import SignupAuthority from "../pages/auth/SignupAuthority";
+
 import Dashboard from "../pages/dashboard/dashboard";
 
 import CreateConsultation from "../pages/consultations/CreateConsultation";
 
 import ConsultationStats from "../pages/consultations/ConsultationStats";
 
+import ArchivesConsultation from "../pages/consultations/ArchivesConsultation";
+
 import Engagement from "../pages/engagements/Engagement";
 
 import VotePage from "../pages/votes/vote";
+
+import BlockchainLedger from "../pages/blockchain/BlockchainLedger";
+
+import Settings from "../pages/settings/Settings";
 
 function AppRoutes() {
   return (
@@ -27,6 +35,11 @@ function AppRoutes() {
         <Route
           path="/login"
           element={<Login />}
+        />
+
+        <Route
+          path="/signup"
+          element={<SignupAuthority />}
         />
 
         <Route
@@ -50,6 +63,11 @@ function AppRoutes() {
           />
 
           <Route
+            path="consultations/archives"
+            element={<ArchivesConsultation />}
+          />
+
+          <Route
             path="votes"
             element={<VotePage />}
           />
@@ -57,6 +75,16 @@ function AppRoutes() {
           <Route
             path="engagements"
             element={<Engagement />}
+          />
+
+          <Route
+            path="blockchain"
+            element={<BlockchainLedger />}
+          />
+
+          <Route
+            path="settings"
+            element={<Settings />}
           />
 
         </Route>

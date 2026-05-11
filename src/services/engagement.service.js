@@ -17,7 +17,19 @@ const getEngagements = async () => {
   return response.data;
 };
 
+const updateEngagement = async (id, data) => {
+  const response = await API.patch(`/engagements/${id}`, data);
+  return response.data;
+};
+
+const deleteEngagement = async (id) => {
+  const response = await API.delete(`/engagements/${id}`);
+  return response.data;
+};
+
 export default {
   createEngagement,
   getEngagements,
+  updateEngagement,
+  deleteEngagement,
 };

@@ -49,7 +49,7 @@ function ConsultationStats() {
   }, []);
 
   return (
-    <div className="p-8 min-h-screen bg-gray-100">
+    <div className="p-8 min-h-0 bg-gray-100 h-full overflow-auto">
       <h1 className="text-3xl font-bold mb-8">Statistiques de consultation</h1>
 
       {isLoading ? (
