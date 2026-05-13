@@ -106,7 +106,7 @@ const BAMAKO = {
     'Dramanebougou-Tellem'
   ],
   '7e Arrondissement': [
-    // Liste non exhaustive — laisser vide ou similaire aux proches quartiers
+    
     'Gouana',
     'Kabala',
     'Kalaban-Coro',
