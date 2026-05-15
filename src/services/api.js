@@ -1,11 +1,9 @@
 import axios from "axios";
 
 const API = axios.create({
-<<<<<<< HEAD
-  baseURL: import.meta.env.VITE_BASE_URL || "https://civicvoice.touredri.dev/",
-=======
-  baseURL: import.meta.env.VITE_API_URL || "http://localhost:3005/api",
->>>>>>> 971d282fc07583ebc263a6afe297d8e2b2af97d6
+  baseURL:
+    import.meta.env.VITE_BASE_URL || import.meta.env.VITE_API_URL ||
+    "https://civicvoice.touredri.dev/",
 });
 
 API.interceptors.request.use((config) => {
